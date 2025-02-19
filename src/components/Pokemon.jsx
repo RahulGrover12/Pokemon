@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import PokemonCards from "./PokemonCards";
 
 const Pokemon = () => {
-  const API = "https://pokeapi.co/api/v2/pokemon?limit=31";
+  const API = "https://pokeapi.co/api/v2/pokemons?limit=31";
 
   const [pokemonData, setPokemonData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -38,6 +38,10 @@ const Pokemon = () => {
     pokemon.name.toLowerCase().includes(searchPokemon.toLowerCase())
   );
 
+  //   if (filteredData.length === 0) {
+  //     return <h2>No Pokemon Found</h2>;
+  //   }
+
   if (loading) {
     return (
       <div>
@@ -45,12 +49,9 @@ const Pokemon = () => {
       </div>
     );
   }
+  let errorMsg = "";
   if (error) {
-    return (
-      <div>
-        <h1>{error}</h1>
-      </div>
-    );
+    errorMsg = error;
   }
 
   return (
@@ -71,9 +72,14 @@ const Pokemon = () => {
 
         <div>
           <ul className="cards">
-            {filteredData.map((pokemon) => {
-              return <PokemonCards key={pokemon.id} pokemon={pokemon} />;
-            })}
+            {errorMsg}
+            {filteredData.length === 0 ? (
+              <h2>No data Found</h2>
+            ) : (
+              filteredData.map((pokemon) => {
+                return <PokemonCards key={pokemon.id} pokemon={pokemon} />;
+              })
+            )}
           </ul>
         </div>
       </section>
