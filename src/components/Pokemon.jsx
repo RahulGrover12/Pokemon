@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import PokemonCards from "./PokemonCards";
 
 const Pokemon = () => {
-  const API = "https://pokeapi.co/api/v2/pokemons?limit=31";
+  const API = "https://pokeapi.co/api/v2/pokemon?limit=31";
 
   const [pokemonData, setPokemonData] = useState([]);
   const [loading, setLoading] = useState(true);
